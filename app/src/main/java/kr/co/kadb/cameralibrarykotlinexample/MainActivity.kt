@@ -42,6 +42,12 @@ class MainActivity : AppCompatActivity() {
                 val resizeBitmap = BitmapHelper.resize(cropBitmap, 640)
                 cropBitmap?.recycle()
 
+                // Bitmap 저장.
+                // isPublicDirectory: true: 공용저장소, false: 개별저장소.
+                val resizeImageUri = BitmapHelper.save(
+                    baseContext, resizeBitmap, true
+                )
+
                 // Base64로 인코딩 된 문자열 반환.
                 val base64 = BitmapHelper.toBase64(resizeBitmap)
 
