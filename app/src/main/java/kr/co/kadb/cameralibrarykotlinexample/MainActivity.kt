@@ -1,17 +1,13 @@
 package kr.co.kadb.cameralibrarykotlinexample
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import kr.co.kadb.cameralibrary.presentation.CameraIntent
 import kr.co.kadb.cameralibrary.presentation.model.CropSize
-import kr.co.kadb.cameralibrary.presentation.widget.util.BitmapHelper
 import kr.co.kadb.cameralibrary.presentation.widget.util.IntentKey
 import kr.co.kadb.cameralibrary.presentation.widget.util.UriHelper
 
@@ -31,13 +27,13 @@ class MainActivity : AppCompatActivity() {
                     // 이미지 URI.
                     val imageUri = intent.data ?: return@registerForActivityResult
                     // 이미지 가로.
-                    val imageWidth = intent.getIntExtra(IntentKey.EXTRA_WIDTH, 0)
+                    //val imageWidth = intent.getIntExtra(IntentKey.EXTRA_WIDTH, 0)
                     // 이미지 세로.
-                    val imageHeight = intent.getIntExtra(IntentKey.EXTRA_HEIGHT, 0)
+                    //val imageHeight = intent.getIntExtra(IntentKey.EXTRA_HEIGHT, 0)
                     // 이미지 방향.
-                    val imageRotation = intent.getIntExtra(IntentKey.EXTRA_ROTATION, 0)
+                    //val imageRotation = intent.getIntExtra(IntentKey.EXTRA_ROTATION, 0)
                     // 썸네임 이미지.
-                    val thumbnailBitmap = intent.extras?.get("data") as? Bitmap
+                    //val thumbnailBitmap = intent.extras?.get("data") as? Bitmap
 
                     // Uri를 이미지로 변환.
                     val bitmap = UriHelper.toBitmap(baseContext, imageUri)
@@ -48,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                     )*/
 
                     // 가로, 세로 중 큰 길이를 640(pixel)에 맞춰 비율 축소.
-                    val resizeBitmap = BitmapHelper.resize(bitmap, 640)
+                    //val resizeBitmap = BitmapHelper.resize(bitmap, 640)
                     // 가로, 세로 중 큰 길이를 640(pixel)에 가깝게(640이상 ~ 1280미만) 맞춰 비율 축소.
                     // 예) resizePixcel이 640인 경우 결과는 640이상 ~ 1280미만.
                     // 성능 및 좋은 샘플링으로 이미지를 추출.
@@ -62,13 +58,13 @@ class MainActivity : AppCompatActivity() {
                     )*/
 
                     // Base64로 인코딩 된 문자열 반환.
-                    val base64 = BitmapHelper.toBase64(resizeBitmap)
-                    findViewById<TextView>(R.id.textview).text = base64
+                    /*val base64 = BitmapHelper.toBase64(resizeBitmap)
+                    findViewById<TextView>(R.id.textview).text = base64*/
 
                     // 촬영 원본 이미지.
                     findViewById<ImageView>(R.id.imageview).setImageURI(imageUri)
                     // 촬영 원본을 크롭 및 리사이즈한 이미지.
-                    findViewById<ImageView>(R.id.imageview_thumbnail).setImageBitmap(resizeBitmap)
+                    //findViewById<ImageView>(R.id.imageview_thumbnail).setImageBitmap(resizeBitmap)
                 }
                 IntentKey.ACTION_TAKE_MULTIPLE_PICTURES -> {
                     // 여러장.
