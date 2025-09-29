@@ -4,20 +4,23 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.*
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import kr.co.kadb.cameralibrary.presentation.CameraIntent
-import kr.co.kadb.cameralibrary.presentation.model.CropSize
 import kr.co.kadb.cameralibrary.presentation.widget.util.IntentKey
 import kr.co.kadb.cameralibrary.presentation.widget.util.UriHelper
 
 class MainActivity : AppCompatActivity() {
+
     // Crop Size.
-    private val cropSize = CropSize(0.7f, 0.5f)
+    //private val cropSize = CropSize(0.7f, 0.5f)
 
     // Activity for result.
-    // Example 2. 3. 의 결과 수신.
-    private var resultLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+    // Example 2, 3.
+    private var resultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
         val intent = result.data
         if (result.resultCode == RESULT_OK) {
             // 한 장, 여러 장.
@@ -69,7 +72,8 @@ class MainActivity : AppCompatActivity() {
                 IntentKey.ACTION_TAKE_MULTIPLE_PICTURES -> {
                     // 여러장.
                 }
-                IntentKey.ACTION_DETECT_MILEAGE_IN_PICTURES, IntentKey.ACTION_DETECT_VIN_NUMBER_IN_PICTURES -> {
+                IntentKey.ACTION_DETECT_MILEAGE_IN_PICTURES,
+                IntentKey.ACTION_DETECT_VIN_NUMBER_IN_PICTURES -> {
                     // 감지한 텍스트.
                     val detectText = intent.getStringExtra(IntentKey.EXTRA_DETECT_TEXT)
                     findViewById<TextView>(R.id.textview).text = detectText
@@ -134,7 +138,7 @@ class MainActivity : AppCompatActivity() {
                 setCanMute(false) // 단말 음소거 시 셔터 무음.
                 setHasHorizon(true) // 미리보기 화면에 수평선 표시.
                 //setCropPercent(cropPercent) // 크롭 영역 설정(Deprecated).
-                setCropSize(cropSize) // 크롭 영역 설정.
+                //setCropSize(cropSize) // 크롭 영역 설정(Deprecated).
                 setCanUiRotation(true) // 회전 가능.
                 setHorizonColor(Color.RED) // 수평선 색상.
                 setUnusedAreaBorderColor(Color.GREEN) // 크롭 인 라인 색상.
